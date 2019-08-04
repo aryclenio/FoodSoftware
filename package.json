@@ -1,0 +1,26 @@
+{
+  "name": "portifolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\"",
+    "pug": "pug -w templates --out ./",
+    "sass": "sass --watch node_modules/bootstrap/scss:css scss:css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "concurrently": "^4.1.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "pug": "^2.0.4",
+    "sass": "^1.22.1"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0"
+  }
+}
