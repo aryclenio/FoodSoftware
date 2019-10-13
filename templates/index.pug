@@ -1,41 +1,15 @@
 extends layout.pug
+include mixins/cards.pug
 
+block links
+    link(rel="stylesheet" href="css/layout.css")
 block content
-    .card 
-        .card-header.d-flex.justify-content-between.align-items-center
-            h3.card-title Modulos do sistema
-        .card-body.p-0
-            .row.text-center
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                   a(href="#")  
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-poll-h" style= "font-size: 70px;")
-                        h5.card-title Estoque
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-search-dollar" style= "font-size: 70px;")
-                        h5.card-title Vendas
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                .p-5.col-md-3.col-6.card-item.border-left.border-right
-                    a(href="#") 
-                        i(class="w-100 fas fa-user-friends" style= "font-size: 70px;")
-                        h5.card-title Clientes
-                
+    div.container.d-flex.align-items-center.justify-content-center.h-100
+        .row.d-flex
+            +card-index("Iniciar Venda", "", "cash-register")
+            +card-index("Cadastro de Revenda", "cad-prod-rev.html", "file-alt")
+            +card-index("Cadastro de Matéria Prima", "cad-prod-prima.html", "utensil-spoon")
+            +card-index("Cadastro de Manufatura", "", "hammer")
+            +card-index("Visualizar Balanço Financeiro", "", "dollar-sign")
+        
+                        

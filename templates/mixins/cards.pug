@@ -1,0 +1,6 @@
+mixin card-index(cardTitle = "Placeholder", link = "#", icon="user-friends", exclass="", title="")
+    div(class="col-12 col-lg-4 my-3"+exclass)
+        a(class="link-container" href=link title="Cadastre produtos de revenda que gerarão um lucro fixo em relação ao seu preço de compra.")
+            .card-path.d-flex.align-items-center.p-4
+                i(class="mr-4 fas fa-"+icon style= "font-size: 70px;")
+                h5.card-title.m-0=cardTitle

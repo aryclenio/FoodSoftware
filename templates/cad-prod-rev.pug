@@ -1,0 +1,27 @@
+extends layout.pug
+block links
+    link(rel="stylesheet" href="css/layout.css")
+    link(rel="stylesheet" href="css/produto.css")
+block content
+    div.container.d-flex.align-items-center.justify-content-center.h-100
+        .subcontainer.p-4
+            h3.font-weight-bold.pb-4.text-primary Cadastro de Produto de Revenda
+            form.product-form.w-100
+                .form-row
+                    .form-group.col-md-2
+                        input(type="number" class="form-control disabled" placeholder="Código")
+                    .form-group.col-md-10
+                        input(type="text" class="form-control" id="inputAddress" placeholder="Nome do produto")
+                .form-row
+                    .form-group.col-md-6
+                        input(type="text" class="form-control" id="inputAddress" placeholder="Fornecedor")
+                    .form-group.col-md-6
+                        input(type="text" class="form-control" id="inputAddress" placeholder="Marca")
+                .form-row   
+                    .form-group.col-md-4
+                        input(type="number" class="form-control" placeholder="Quantidade")
+                    .form-group.col-md-4
+                        input(type="number" class="form-control" placeholder="Valor de Compra (R$)")
+                    .form-group.col-md-4
+                        input(type="number" class="form-control" placeholder="Valor de Venda (R$)")
+                button(type="submit" class="btn btn-primary justify-content-end w-100") Cadastrar Produto
