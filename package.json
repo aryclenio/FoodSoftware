@@ -18,7 +18,8 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "pug": "^2.0.4",
-    "sass": "^1.22.1"
+    "pug-cli": "^1.0.0-alpha6",
+    "sass": "^1.23.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0"
