@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\"",
-    "pug": "pug -w templates --out ./",
-    "sass": "sass --watch node_modules/bootstrap/scss:css scss:css"
+    "pug": "pug -w templates/views --out ./dist/",
+    "sass": "sass --watch node_modules/bootstrap/scss:dist/css scss:dist/css"
   },
   "keywords": [],
   "author": "",
