@@ -2,8 +2,6 @@ RewriteEngine On
 
 # Pagina inicial
 RewriteRule    ^$    dist/index.html    [NC,L,QSA]
+RewriteRule    ^(.*)/$    dist/$1.html    [NC,L,QSA]
+RewriteRule    ^([A-Za-z0-9-_/]+)$    dist/$1.html    [NC,L,QSA]
 
-
-# Elimina extensao .html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
