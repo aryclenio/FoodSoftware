@@ -1,0 +1,25 @@
+body {
+  background-color: #34495E !important;
+  font-family: Liberation !important;
+}
+
+.subcontainer {
+  border: 1px solid #ccc;
+  background-color: #f3f3f3;
+  border-radius: 20px !important;
+  opacity: 0.9;
+}
+
+.link-container {
+  max-width: 300px;
+}
+
+.card-path {
+  border: 1px solid #ccc;
+  background-color: #f3f3f3;
+  border-radius: 20px !important;
+  opacity: 0.9;
+  min-height: 150px;
+}
+
+/*# sourceMappingURL=layout.css.map */
