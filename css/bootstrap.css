@@ -55,7 +55,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -158,7 +158,6 @@ a {
 }
 a:hover {
   color: #19232d;
-  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -358,7 +357,6 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -1818,7 +1816,6 @@ pre code {
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -2262,7 +2259,6 @@ textarea.form-control {
 
 .btn {
   display: inline-block;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 400;
   color: #212529;
   text-align: center;
@@ -3430,7 +3426,6 @@ input[type=button].btn-block {
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -3518,7 +3513,6 @@ input[type=button].btn-block {
   z-index: 1;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
@@ -4138,7 +4132,7 @@ input[type=button].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: inherit;
+  background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-header:first-child {
@@ -4302,49 +4296,12 @@ input[type=button].btn-block {
   margin-bottom: -1px;
 }
 
-.card-link {
-  height: 100%;
-  width: 100%;
-  display: block;
-  text-decoration: none;
-}
-.card-link:hover {
-  color: #fff;
-}
-
-.card-item {
-  box-sizing: border-box;
-}
-.card-item i {
-  color: #343a40;
-}
-.card-item h5 {
-  color: #343a40;
-}
-.card-item a {
-  color: #343a40;
-}
-.card-item:hover {
-  background-color: #343a40;
-  transition: all 0.2s ease-in-out;
-}
-.card-item:hover i {
-  color: #fff;
-}
-.card-item:hover h5 {
-  color: #fff;
-}
-.card-item:hover a {
-  color: #fff;
-}
-
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #e9ecef;
   border-radius: 0.25rem;
 }
 
@@ -4356,6 +4313,12 @@ input[type=button].btn-block {
   padding-right: 0.5rem;
   color: #6c757d;
   content: "/";
+}
+.breadcrumb-item > a {
+  color: #ffffffb9 !important;
+}
+.breadcrumb-item > a > i {
+  font-size: 16px;
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
@@ -5327,7 +5290,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5429,7 +5392,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;

@@ -1,6 +1,5 @@
 body {
   background-color: #34495E !important;
-  font-family: Liberation !important;
 }
 
 .subcontainer {
@@ -20,6 +19,13 @@ body {
   border-radius: 20px !important;
   opacity: 0.9;
   min-height: 150px;
+}
+
+.item-fin {
+  background-color: #fafafa;
+}
+.item-fin i {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=layout.css.map */
