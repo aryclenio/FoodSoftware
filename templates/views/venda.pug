@@ -4,7 +4,14 @@ block links
     link(rel="stylesheet" href="dist/css/produto.css")
     link(rel="stylesheet" href="dist/css/venda.css")
 block content
-    div.container.d-flex.align-items-center.justify-content-center.h-100
+    nav(aria-label="breadcrumb")
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href="/FoodSoftware") 
+                    i.fas.fa-home
+            li(class="breadcrumb-item active" aria-current="page") Iniciar Venda
+    
+    div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
             h6.font-weight-bold.pb-2.text-primary Lista de Produtos
             table.table.table-sm.table-hover
@@ -21,39 +28,77 @@ block content
                         th(scope="row") 1
                         td Mark
                         td Otto
-                        td @mdo
+                        td R$ 10,00
                     tr
                         th(scope="row") 1
                         td Mark
                         td Otto
-                        td @mdo
+                        td R$ 10,00
                     tr
                         th(scope="row") 1
                         td Mark
                         td Otto
-                        td @mdo
+                        td R$ 10,00
                     tr
                         th(scope="row") 1
                         td Mark
                         td Otto
-                        td @mdo
+                        td R$ 10,00
                     tr
                         th(scope="row") 1
                         td Mark
                         td Otto
-                        td @mdo
-            button(type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal") Terminar Venda
+                        td R$ 10,00
+            p.text-right Valor Total: 
+                span.font-weight-bold.text-primary R$ 50,00
+            button(type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-conf-venda") Terminar Venda
 
-        div(class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
-            div(class="modal-dialog" role="document")
+        div(class="modal fade" id="modal-conf-venda" tabindex="-1" role="dialog" aria-labelledby="modal-conf-venda-Label" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered" role="document")
                 .modal-content
-                    .modal-header
-                        h5(class="modal-title" id="exampleModalLabel") Tem certeza que deseja encerrar a venda?
+                    .modal-header.d-flex.justify-content-center.border-0
+                        h5(class="modal-title text-primary" id="modal-conf-venda-Label") Tem certeza que deseja encerrar a venda?
                         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
                             span(aria-hidden="true") &times;
-            
+                    .modal-footer.d-flex.justify-content-center.border-0
+                        button(type="button" class="btn btn-sm btn-primary" id="pagamento" onclick="pag()") Sim
+                        button(type="button" class="btn btn-sm btn-secondary" data-dismiss="modal") Não
+        
+        div(class="modal fade" id="modal-pag" tabindex="-1" role="dialog" aria-labelledby="modal-pag-Label" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                .modal-content
+                    .modal-header.d-flex.justify-content-center.border-0
+                        h5(class="modal-title text-primary" id="modal-pag-Label") Janela de Pagamento
+                    .modal-body.mx-3
+                        .row
+                            h6 O valor total da compra foi de: 
+                                span.font-weight-bold.text-primary R$ 50,00
+                        .row
+                            select.custom-select
+                                option(selected) Escolha a forma de pagamento
+                                option(value="1") Cartão de Crédito
+                                option(value="2") Cartão de Débito
+                                option(value="3") Especie              
+                    .modal-footer.d-flex.justify-content-center.border-0
+                        button(type="button" class="btn btn-sm btn-primary" id="pagamento" onclick="conf()") Confirmar Pagamento
+                        button(type="button" class="btn btn-sm btn-secondary" data-dismiss="modal") Cancelar Pagamento
+        
+        div(class="modal fade" id="modal-pag-conf" tabindex="-1" role="dialog" aria-labelledby="modal-pag-conf-Label" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                .modal-content
+                    .modal-header.d-flex.justify-content-center.border-0
+                        h5(class="modal-title text-success" id="modal-pag-conf-Label") Pagamento realizado com sucesso!        
                     .modal-body
-                    .modal-footer
-                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Não
-                        button(type="button" class="btn btn-primary") Sim
+                        p O pagamento foi cadastrado com sucesso e poderá ser visualizado na seção de orçamento.
+                    .modal-footer.d-flex.justify-content-center.border-0
+                        button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal") OK
+    script.
+        const pag = () => {
+            $('#modal-conf-venda').modal('hide');
+            $('#modal-pag').modal('show');     
+        }        
+        const conf = () => {
+            $('#modal-pag').modal('hide');
+            $('#modal-pag-conf').modal('show');     
+        }                  
     

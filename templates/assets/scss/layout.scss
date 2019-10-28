@@ -1,5 +1,6 @@
 body{
     background-color: #34495E !important; 
+
 }
 .subcontainer {
     border: 1px solid #ccc;
@@ -16,4 +17,10 @@ body{
     border-radius: 20px !important;
     opacity: 0.9;
     min-height: 150px;
+}
+.item-fin{
+    background-color: #fafafa;
+        i{
+            font-size: 16px;
+        }
 }

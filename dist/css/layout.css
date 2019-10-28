@@ -21,4 +21,11 @@ body {
   min-height: 150px;
 }
 
+.item-fin {
+  background-color: #fafafa;
+}
+.item-fin i {
+  font-size: 16px;
+}
+
 /*# sourceMappingURL=layout.css.map */

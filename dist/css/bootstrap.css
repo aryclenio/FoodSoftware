@@ -4302,7 +4302,6 @@ input[type=button].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #e9ecef;
   border-radius: 0.25rem;
 }
 
@@ -4314,6 +4313,12 @@ input[type=button].btn-block {
   padding-right: 0.5rem;
   color: #6c757d;
   content: "/";
+}
+.breadcrumb-item > a {
+  color: #ffffffb9 !important;
+}
+.breadcrumb-item > a > i {
+  font-size: 16px;
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
