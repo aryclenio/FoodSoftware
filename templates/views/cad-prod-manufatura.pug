@@ -1,0 +1,53 @@
+extends layout.pug
+block links
+    link(rel="stylesheet" href="dist/css/layout.css")
+    link(rel="stylesheet" href="dist/css/produto.css")
+    link(rel="stylesheet" href="dist/css/venda.css")
+block content
+    nav(aria-label="breadcrumb")
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href="/FoodSoftware") 
+                    i.fas.fa-home
+            li(class="breadcrumb-item active" aria-current="page") Cadastrar Manufatura
+    div.container.d-flex.align-items-center.justify-content-center
+        .subcontainer.p-4
+            h4.font-weight-bold.pb-2.text-primary Cadastro de Matéria Prima
+            .row.pb-3
+                .col-10
+                    input(type="text" class="form-control" id="inputAddress" placeholder="Adicione produtos a manufatura")
+                .col-2   
+                    button.btn.btn-primary Adicionar
+            .row 
+                .col-12   
+                    h6.text-primary.font-weight-bold Produtos Adicionados
+                .col-12
+                    table.table.table-sm.table-hover
+                        thead
+                            tr
+                                th(scope="col") Nome do produto
+                                th(scope="col") Quantidade
+                                th(scope="col") Preço
+                        tbody
+                            tr
+                                td Ovos de Granja
+                                td 3
+                                td 1,57
+                            tr
+                                td Farinha de Trigo
+                                td 1
+                                td 4,50
+                            tr
+                                td Ovos de Granja
+                                td 3
+                                td 1,57
+                            tr
+                                td Ovos de Granja
+                                td 3
+                                td 1,57
+                            tr
+                                td Ovos de Granja
+                                td 3
+                                td 1,57
+            .row.d-flex.justify-content-end    
+                button.btn.btn-sm.btn-primary Cadastrar Manufatura

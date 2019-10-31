@@ -1,0 +1,16 @@
+extends layout.pug
+include ../mixins/cards.pug
+
+block links
+    link(rel="stylesheet" href="dist/css/bootstrap.css")
+    link(rel="stylesheet" href="dist/css/layout.css")
+block content
+    div.container.d-flex.align-items-center.justify-content-center.h-100
+        .row.d-flex
+            +card-index("Iniciar Venda", "venda", "cash-register")
+            +card-index("Cadastar Revenda", "cad-prod-rev", "file-alt")
+            +card-index("Cadastar Matéria Prima", "cad-prod-prima", "utensil-spoon")
+            +card-index("Cadastar Manufatura", "cad-prod-manufatura", "hammer")
+            +card-index("Balanço Financeiro", "financeiro", "dollar-sign")
+        
+                        

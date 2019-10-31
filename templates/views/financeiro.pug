@@ -1,0 +1,78 @@
+extends layout.pug
+block links
+    link(rel="stylesheet" href="dist/css/layout.css")
+    link(rel="stylesheet" href="dist/css/produto.css")
+    link(rel="stylesheet" href="dist/css/venda.css")
+block content
+    nav(aria-label="breadcrumb")
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href="/FoodSoftware") 
+                    i.fas.fa-home
+            li(class="breadcrumb-item active" aria-current="page") Balanço Financeiro
+    
+    div.container.d-flex.align-items-center.justify-content-center.mb-3
+        .subcontainer.p-4
+            h4.font-weight-bold.pb-3.text-primary Balanço Financeiro
+            .row.pb-3
+                .col-12
+                    h5.text-primary Dados Estatisticos
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Média de Gastos Totais
+                        .d-flex.align-items-center
+                            i.fas.fa-arrow-down.text-danger.mr-2
+                            h6.text-danger.m-0 R$ 23,40
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Média de Ganhos Totais
+                        .d-flex.align-items-center
+                            i.fas.fa-arrow-up.text-success.mr-2
+                            h6.text-success.m-0 R$ 23,40
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Vendas Totais Realizadas
+                        .d-flex.align-items-center
+                            i.fas.fa-shopping-cart.text-warning.mr-2
+                            h6.text-warning.m-0 522
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Lucro Total
+                        .d-flex.align-items-center
+                            i.fas.fa-dollar-sign.text-primary.mr-2
+                            h6.text-primary.m-0 R$ 6.000,20
+            .row.pb-3
+                .col-12
+                    h5.text-primary Lucros Brutos
+                .col-12
+                    select.custom-select
+                        option(selected) Selecione o periodo
+                        option(value="1") Diário
+                        option(value="2") Mensal
+                        option(value="3") Anual  
+            .row
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Gastos
+                        .d-flex.align-items-center
+                            i.fas.fa-arrow-down.text-danger.mr-2
+                            h6.text-danger.m-0 R$ 23,40
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Ganhos
+                        .d-flex.align-items-center
+                            i.fas.fa-arrow-up.text-success.mr-2
+                            h6.text-success.m-0 R$ 23,40
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Vendas Realizadas
+                        .d-flex.align-items-center
+                            i.fas.fa-shopping-cart.text-warning.mr-2
+                            h6.text-warning.m-0 522
+                .col-6.mt-2
+                    .item-fin.p-3.border.rounded
+                        h6 Lucro 
+                        .d-flex.align-items-center
+                            i.fas.fa-dollar-sign.text-primary.mr-2
+                            h6.text-primary.m-0 R$ 6.000,20
+            
