@@ -58,7 +58,7 @@ $(document).ready(function () {
    });*/
 //app.listen(1337);
 //CadProdutosRevenda
-/*
+
 $(document).ready(function () {
     var mysql = require('mysql');
     var con = mysql.createConnection({

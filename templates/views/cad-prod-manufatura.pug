@@ -13,11 +13,16 @@ block content
     div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
             h4.font-weight-bold.pb-2.text-primary Cadastro de Manufatura
-            .row.pb-3
-                .col-10
-                    input(type="text" class="form-control" id="inputAddress" placeholder="Adicione produtos a manufatura")
-                .col-2   
-                    button.btn.btn-primary Adicionar
+            .form-row
+                    .form-group.col-md-9
+                        input(type="text" name="nome" class="form-control" id="nome" placeholder="Nome do produto")
+                    .form-group.col-md-3
+                        input(type="number" name="quant" class="form-control" id="quant" placeholder="Quantidade")
+            .form-row
+                    .form-group.col-md-9
+                        input(type="text" name="nome" class="form-control" id="nome" placeholder="Pesquisar Produtos")
+                    .form-group.col-md-3  
+                        button(class='btn btn-primary' onclick='search();') Adicionar
             .row 
                 .col-12   
                     h6.text-primary.font-weight-bold Produtos Adicionados
@@ -28,26 +33,20 @@ block content
                                 th(scope="col") Nome do produto
                                 th(scope="col") Quantidade
                                 th(scope="col") Preço
-                        tbody
-                            tr
-                                td Ovos de Granja
-                                td 3
-                                td 1,57
-                            tr
-                                td Farinha de Trigo
-                                td 1
-                                td 4,50
-                            tr
-                                td Ovos de Granja
-                                td 3
-                                td 1,57
-                            tr
-                                td Ovos de Granja
-                                td 3
-                                td 1,57
-                            tr
-                                td Ovos de Granja
-                                td 3
-                                td 1,57
+                        tbody(id="table-body")
+                           
             .row.d-flex.justify-content-end    
                 button.btn.btn-sm.btn-primary Cadastrar Manufatura
+    script.
+        function search() {
+            $.getJSON('http://localhost:3000/produto', function(data) {
+                console.log(data);
+                console.log(data[0].Nome);
+                const $new = $('<tr>').appendTo('#table-body')
+                $('<td>').html(data[0].Nome).appendTo($new)
+                $('<td>').html(data[0].Estoque).appendTo($new)
+                $('<td>').html(data[0].Preco).appendTo($new)
+            });         
+        }
+
+        

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\" \"node templates/assets/js/server.js",
+    "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\"",
     "server": "node templates/assets/js/index.js",
     "pug": "pug -w templates/views --out ./dist/",
     "sass": "sass --watch templates/assets/bootstrap:dist/css templates/assets/scss:dist/css"

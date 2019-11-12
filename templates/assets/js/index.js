@@ -30,7 +30,7 @@ function execSQLQuery(sqlQry, res){
     host: 'localhost',
     user: 'root',
     password: 'root',
-    port: 3306,
+    port: 3308,
     database:'loja'
   });
  
