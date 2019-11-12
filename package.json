@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\"",
+    "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\" \"node templates/assets/js/server.js",
+    "server": "node templates/assets/js/index.js",
     "pug": "pug -w templates/views --out ./dist/",
     "sass": "sass --watch templates/assets/bootstrap:dist/css templates/assets/scss:dist/css"
   },
@@ -16,7 +17,9 @@
     "babel": "^6.23.0",
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
+    "mysql": "^2.17.1",
     "popper.js": "^1.15.0",
     "pug": "^2.0.4",
     "pug-cli": "^1.0.0-alpha6",

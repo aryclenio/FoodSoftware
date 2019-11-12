@@ -2,6 +2,7 @@ extends layout.pug
 block links
     link(rel="stylesheet" href="dist/css/layout.css")
     link(rel="stylesheet" href="dist/css/produto.css")
+
 block content
     nav(aria-label="breadcrumb")
         ol.breadcrumb
@@ -12,22 +13,51 @@ block content
     div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
             h3.font-weight-bold.pb-4.text-primary Cadastro de Produto de Revenda
-            form.product-form.w-100
+            #cad-revenda
                 .form-row
-                    .form-group.col-md-2
-                        input(type="number" class="form-control disabled" placeholder="Código")
                     .form-group.col-md-10
-                        input(type="text" class="form-control" id="inputAddress" placeholder="Nome do produto")
+                        input(type="text" name="nome" class="form-control" id="nome" placeholder="Nome do produto")
+                    .form-group.col-md-2
+                        input(type="text" name="tipo" class="form-control" id="tipo" placeholder="Tipo")
+                .form-row
+                    .form-group.col-md-12
+                        input(type="text" name="desc" class="form-control" id="desc" placeholder="Descrição")
                 .form-row
                     .form-group.col-md-6
-                        input(type="text" class="form-control" id="inputAddress" placeholder="Fornecedor")
+                        input(type="text" name="forn" class="form-control" id="forn" placeholder="Fornecedor")
                     .form-group.col-md-6
-                        input(type="text" class="form-control" id="inputAddress" placeholder="Marca")
+                        input(type="Date" name="val" class="form-control" id="val" placeholder="Validade")
                 .form-row   
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Quantidade")
+                        input(type="number" name="quant" class="form-control" id="quant" placeholder="Quantidade")
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Valor de Compra (R$)")
+                        input(type="number" name="v_compra" class="form-control" id="v_compra" placeholder="Valor de Compra (R$)")
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Valor de Venda (R$)")
-                button(type="submit" class="btn btn-primary justify-content-end w-100") Cadastrar Produto
+                        input(type="number" name="v_venda" class="form-control" id="v_venda" placeholder="Valor de Venda (R$)")
+                    button(type="button" class="btn btn-primary justify-content-end w-100" id="cad-prod" onclick='submit();') Cadastrar Produto
+
+        div(class="modal fade" id="modal-cad-conf" tabindex="-1" role="dialog" aria-labelledby="modal-pag-conf-Label" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                .modal-content
+                    .modal-header.d-flex.justify-content-center.border-0
+                        h5(class="modal-title text-success" id="modal-pag-conf-Label") Produto de Revenda Cadastrado com Sucesso        
+                    .modal-body
+                        p O produto pode ser agora encontrado com seus respectivos dados na tela de venda.
+                    .modal-footer.d-flex.justify-content-center.border-0
+                        button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="location.reload();") OK
+    script.
+
+        function submit() {
+            $.post( 'http://localhost:3000/produto', { 
+                    nome: $('#nome').val(),
+                    tipo: $('#tipo').val(),
+                    desc: $('#desc').val(),
+                    forn: $('#forn').val(),
+                    val: $('#val').val(),
+                    quant: $('#quant').val(),
+                    v_compra: $('#v_compra').val(),
+                    v_venda: $('#v_venda').val()
+                });
+                $('#modal-cad-conf').modal('show');      
+        }
+      
