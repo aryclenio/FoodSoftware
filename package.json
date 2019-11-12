@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently --kill-others \"npm run pug\" \"npm run sass\"",
-    "server": "node templates/assets/js/index.js",
+    "server": "nodemon templates/assets/js/index.js",
     "pug": "pug -w templates/views --out ./dist/",
     "sass": "sass --watch templates/assets/bootstrap:dist/css templates/assets/scss:dist/css"
   },
@@ -26,6 +26,7 @@
     "sass": "^1.23.0"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0"
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "nodemon": "^1.19.4"
   }
 }

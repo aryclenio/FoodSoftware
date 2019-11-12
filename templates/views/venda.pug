@@ -14,6 +14,13 @@ block content
     div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
             h6.font-weight-bold.pb-2.text-primary Lista de Produtos
+            .form-row
+                .form-group.col-md-5
+                    input(type="number" name="nome" class="form-control form-control-sm" id="cod" placeholder="Digite o código do produto")
+                .form-group.col-md-5
+                    input(type="number" name="nome" class="form-control form-control-sm" id="quant" placeholder="Quantidade")
+                .form-group.col-md-2  
+                    button(class='btn btn-primary btn-sm' onclick='search();') Adicionar
             table.table.table-sm.table-hover
                 thead
                     tr
@@ -23,35 +30,12 @@ block content
                         th(scope="col") Preço
                 
         
-                tbody
-                    tr
-                        th(scope="row") 1
-                        td Mark
-                        td Otto
-                        td R$ 10,00
-                    tr
-                        th(scope="row") 1
-                        td Mark
-                        td Otto
-                        td R$ 10,00
-                    tr
-                        th(scope="row") 1
-                        td Mark
-                        td Otto
-                        td R$ 10,00
-                    tr
-                        th(scope="row") 1
-                        td Mark
-                        td Otto
-                        td R$ 10,00
-                    tr
-                        th(scope="row") 1
-                        td Mark
-                        td Otto
-                        td R$ 10,00
+                tbody#table-body
+                    
             p.text-right Valor Total: 
-                span.font-weight-bold.text-primary R$ 50,00
-            button(type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-conf-venda") Terminar Venda
+                span.font-weight-bold.text-primary R$ 
+                span.font-weight-bold.text-primary#somaTot 0.00
+            button(type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-conf-venda") Terminar Venda
 
         div(class="modal fade" id="modal-conf-venda" tabindex="-1" role="dialog" aria-labelledby="modal-conf-venda-Label" aria-hidden="true")
             div(class="modal-dialog modal-dialog-centered" role="document")
@@ -60,7 +44,7 @@ block content
                         h5(class="modal-title text-primary" id="modal-conf-venda-Label") Tem certeza que deseja encerrar a venda?
                         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
                             span(aria-hidden="true") &times;
-                    .modal-footer.d-flex.justify-content-center.border-0
+                    .modal-footer.d-flex.justify-content-center.border-0.pt-0
                         button(type="button" class="btn btn-sm btn-primary" id="pagamento" onclick="pag()") Sim
                         button(type="button" class="btn btn-sm btn-secondary" data-dismiss="modal") Não
         
@@ -72,10 +56,11 @@ block content
                     .modal-body.mx-3
                         .row
                             h6 O valor total da compra foi de: 
-                                span.font-weight-bold.text-primary R$ 50,00
+                                span.font-weight-bold.text-primary R$ 
+                                span.font-weight-bold.text-primary#somaModal 
                         .row
                             select.custom-select
-                                option(selected) Escolha a forma de pagamento
+                                option(selected disabled) Escolha a forma de pagamento
                                 option(value="1") Cartão de Crédito
                                 option(value="2") Cartão de Débito
                                 option(value="3") Especie              
@@ -88,11 +73,12 @@ block content
                 .modal-content
                     .modal-header.d-flex.justify-content-center.border-0
                         h5(class="modal-title text-success" id="modal-pag-conf-Label") Pagamento realizado com sucesso!        
-                    .modal-body
-                        p O pagamento foi cadastrado com sucesso e poderá ser visualizado na seção de orçamento.
+                    .modal-body.py-0
+                        p(class="mb-0 text-justify") O pagamento foi cadastrado com sucesso e poderá ser visualizado na seção de orçamento.
                     .modal-footer.d-flex.justify-content-center.border-0
-                        button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal") OK
+                        button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="location.reload();") OK
     script.
+        let somaTot = 0;
         const pag = () => {
             $('#modal-conf-venda').modal('hide');
             $('#modal-pag').modal('show');     
@@ -101,4 +87,26 @@ block content
             $('#modal-pag').modal('hide');
             $('#modal-pag-conf').modal('show');     
         }                  
-    
+        function search() {
+            if($('#cod').val() != ""){
+                $.getJSON('http://localhost:3000/produto/'+$('#cod').val(), function(data) {
+                    console.log(data);
+                    const $new = $('<tr>').appendTo('#table-body')
+                    $('<td>').html(data[0].idProduto).appendTo($new)
+                    $('<td>').html(data[0].Nome).appendTo($new)
+                    $('<td>').html($('#quant').val()).appendTo($new)
+                    $('<td>').html(data[0].Preco).appendTo($new)
+                    atualizaSoma()
+                })
+            }
+        }
+        
+        function atualizaSoma(){
+            somaTot = 0;
+            $('td:nth-child(4)').each(function(){
+                somaTot = somaTot+ (parseInt($(this).html()) * parseInt($(this).prev().html()));
+            })
+            $('#somaTot').html(parseFloat(somaTot));
+            $('#somaModal').html(parseFloat(somaTot));
+             
+        }

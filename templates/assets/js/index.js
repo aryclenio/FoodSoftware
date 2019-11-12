@@ -30,7 +30,7 @@ function execSQLQuery(sqlQry, res){
     host: 'localhost',
     user: 'root',
     password: 'root',
-    port: 3308,
+    port: 3306,
     database:'loja'
   });
  
@@ -48,6 +48,13 @@ function execSQLQuery(sqlQry, res){
 router.get('/produto', (req, res) =>{
     execSQLQuery('SELECT * FROM produto', res);
 })
+
+router.get('/produto/:id?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ' WHERE idProduto=' + parseInt(req.params.id);
+  execSQLQuery('SELECT * FROM produto' + filter, res);
+})
+
 
 //CADASTRA PRODUTO 
 router.post('/produto', (req, res) =>{
