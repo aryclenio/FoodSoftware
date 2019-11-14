@@ -9,12 +9,17 @@ html
             script(src="node_modules/jquery/dist/jquery.min.js")
             script(src="node_modules/bootstrap/dist/js/bootstrap.min.js")
             script(src="node_modules/popper.js/dist/umd/popper.min.js")
+            script.
+                window.onload = $.getJSON('http://localhost:3000/usuario', function(data) {
+                    $('#username').html(data.nome);
+                });
     body
         header
             nav.navbar.navbar-light.bg-light.d-flex.justify-content-between
                 a(class="navbar-brand d-flex align-items-center" href="/FoodSoftware") 
                     img(src="dist/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="") 
                     h6.mb-0.ml-3.font-weight-bold iFome
-                a(class="navbar-brand d-flex align-items-center" href="/FoodSoftware") 
-                    img(src="dist/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="") 
+                p.m-0 BEM VINDO 
+                    span(id="username" class='text-primary') NOME DO USUARIO 
         block content
+    

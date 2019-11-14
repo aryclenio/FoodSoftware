@@ -10,6 +10,17 @@ body{
 }
 .link-container{
     max-width: 300px;
+    &.disabled,
+    &:disabled,
+    &[disabled] {
+        pointer-events: none !important;
+        cursor: not-allowed;
+        color: #000;
+        >.card-path {
+            border: 1px solid rgb(139, 139, 139);
+            background-color: rgb(139, 139, 139);
+        }
+    }
 }
 .card-path {
     border: 1px solid #ccc;

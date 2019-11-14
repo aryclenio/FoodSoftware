@@ -12,6 +12,15 @@ body {
 .link-container {
   max-width: 300px;
 }
+.link-container.disabled, .link-container:disabled, .link-container[disabled] {
+  pointer-events: none !important;
+  cursor: not-allowed;
+  color: #000;
+}
+.link-container.disabled > .card-path, .link-container:disabled > .card-path, .link-container[disabled] > .card-path {
+  border: 1px solid #8b8b8b;
+  background-color: #8b8b8b;
+}
 
 .card-path {
   border: 1px solid #ccc;

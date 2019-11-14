@@ -3,7 +3,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000; //porta padrão
 const mysql = require('mysql');
-
+let usuario = {
+  nome: "",
+  funcao: ""
+}
 //configurando o body parser para pegar POSTS mais tarde
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -68,4 +71,31 @@ router.post('/produto', (req, res) =>{
     const v_venda = req.body.v_venda;
 
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
+})
+
+//LOGIN DE FUNCIONÁRIO
+router.get('/funcionario/:email?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ' WHERE Email=' + parseInt(req.params.email);
+  execSQLQuery('SELECT * FROM funcionario' + filter, res);
+})
+//CADASTRA FUNCIONÁRIO
+router.post('/funcionario', (req, res) =>{
+  const nome = req.body.nome;
+  const cpf = req.body.cpf;
+  const sal = req.body.sal;
+  const user = req.body.user;
+  const email = req.body.email;
+  const senha = req.body.senha;
+  const func = req.body.func;
+
+  execSQLQuery(`INSERT INTO funcionario(Nome,CPF,Funcao,Salario,Login,Email,Senha, PrioridadeSistema) values('${nome}','${cpf}','${func}','${sal}','${user}','${email}', '${senha}', 1)`, res);
+})
+
+router.post('/usuario', (req, res) =>{
+  usuario.nome = req.body.nome;
+  usuario.funcao = req.body.funcao;
+})
+router.get('/usuario', (req, res) =>{
+  res.send(usuario);
 })
