@@ -101,10 +101,11 @@ router.post('/produtomanu', (req, res) => {
 //Procurar Manufatura
 router.get('/produtomanu/:nome?', (req, res) => {
     let filter = '';
-    if (req.params.id) filter = ' WHERE Nome=' + req.params.nome;
-    execSQLQuery('SELECT * FROM produto' + filter, res);
+    if (req.params.id) {
+        filter = ' WHERE Nome = ' + ParseInt(req.params.nome);
+        execSQLQuery('SELECT * FROM produto ' + filter, res);
+    }
 })
-//Cadastrar relacionamento manufatura
 
 //LOGIN DE FUNCIONÁRIO
 router.get('/funcionario/:email?', (req, res) =>{

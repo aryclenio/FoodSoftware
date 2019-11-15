@@ -42,19 +42,10 @@ block content
                     .form-group.col-md-6
                         input(type="number" name="v_preco" class="form-control" id="v_preco" placeholder="Preço de Venda")
             .row.d-flex.justify-content-end    
-                button(class="btn btn-sm btn-primary" onclick="cadatrarManufatura") Cadastrar Manufatura
+                button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();location.reload();") Cadastrar Manufatura
     script.
-       let produtos[];
-       let cont=0;
-       let quanti[];
-       function atualizaArray(){
-           produtos[cont]=$('#cod-pesquisa').val();
-           quanti[cont]=$('#quant-pesquisa').val();
-           cont=cont+1;
-       }
        function search() {
             if($('#cod-pesquisa').val() != "" && $('#quant-pesquisa').val() ){
-                atualizaArray();
                 $.getJSON('http://localhost:3000/produto/'+$('#cod-pesquisa').val(), function(data) {
                     const $new = $('<tr>').appendTo('#table-body')
                     $('<td>').html(data[0].Nome).appendTo($new)
@@ -63,22 +54,23 @@ block content
                 }); 
             }
          }
-         function cadastrarManufatura() {
-            if($('#cod-pesquisa').val() != "" && $('#quant-pesquisa').val() ){
+                  function cadastrarManufatura() {
+            if($('#nome').val() != "" && $('#quant').val() ){
                 $.post( 'http://localhost:3000/produtomanu', { 
                     nome: $('#nome').val(),
-                    tipo: 3,
-                    desc: "feito em casa",
-                    forn: "feito em casa",
+                    tipo: "3",
+                    desc:"gostoso",
+                    forn:"tiaBisa",
                     val: $('#val').val(),
                     quant: $('#quant').val(),
-                    v_compra:0,
+                    v_compra:"0.0",
                     v_venda: $('#v_preco').val()
-                });
-                $('#modal-cad-conf').modal('show');      
-        }
-                $.getJSON('http://localhost:3000/produtomanu/'+$('#nome').val(), function(data) {
                 }); 
+                alert("produtão cadastrado");
+                //$.getJSON('http://localhost:3000/produtomanu/'+$('#nome').val(), function(data) {
+                  //  alert(data);
+                //}); 
             }
          }
+
         
