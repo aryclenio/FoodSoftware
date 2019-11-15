@@ -15,14 +15,33 @@ block content
             form.product-form.w-100
                 .form-row
                     .form-group.col-md-2
-                        input(type="number" class="form-control disabled" placeholder="Código")
+                        input(type="number" name="tipo" class="form-control disabled" id="tipo" placeholder="Código")
                     .form-group.col-md-10
-                        input(type="text" class="form-control" id="inputAddress" placeholder="Nome do produto")
+                        input(type="text" name="nome" class="form-control" id="nome" placeholder="Nome do produto")
+                .form-row   
+                    .form-group.col-md-6
+                        input(type="number" name="quant" class="form-control" id="quant" placeholder="Quantidade")
+                    .form-group.col-md-6
+                        input(type="number" name="v_compra" class="form-control" id="v_compra" placeholder="Valor de Compra (R$)")
                 .form-row   
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Quantidade")
+                        input(type="text" name="forn" class="form-control" id="forn" placeholder="Fornecedor")
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Valor de Compra (R$)")
+                        input(type="date" name="val" class="form-control" id="val" placeholder="Validade")
                     .form-group.col-md-4
-                        input(type="number" class="form-control" placeholder="Valor de Venda (R$)")
-                button(type="submit" class="btn btn-primary justify-content-end w-100") Cadastrar Produto
+                        input(type="text" name="desc" class="form-control" id="desc" placeholder="descrição")
+                button(type="submit" class="btn btn-primary justify-content-end w-100" onclick="submitprima();") Cadastrar Produto
+   script.
+        function submitprima() {
+            $.post( 'http://localhost:3000/produtoprima', { 
+                    nome: $('#nome').val(),
+                    tipo: $('#tipo').val(),
+                    desc: $('#desc').val(),
+                    forn: $('#forn').val(),
+                    val: $('#val').val(),
+                    quant: $('#quant').val(),
+                    v_compra: $('#v_compra').val(),
+                    v_venda: $('#v_compra').val()
+                });  
+        }
+        

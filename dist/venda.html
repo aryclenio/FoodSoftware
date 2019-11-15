@@ -10,7 +10,7 @@ const conf = () => {
     $('#modal-pag-conf').modal('show');     
 }                  
 function search() {
-    if($('#cod').val() != ""){
+    if($('#cod').val() != "" && $('#quant').val() != ""){
         $.getJSON('http://localhost:3000/produto/'+$('#cod').val(), function(data) {
             console.log(data);
             const $new = $('<tr>').appendTo('#table-body')

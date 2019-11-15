@@ -19,9 +19,11 @@ block content
                     .form-group.col-md-3
                         input(type="number" name="quant" class="form-control" id="quant" placeholder="Quantidade")
             .form-row
-                    .form-group.col-md-9
-                        input(type="text" name="nome" class="form-control" id="nome" placeholder="Pesquisar Produtos")
-                    .form-group.col-md-3  
+                    .form-group.col-md-7
+                        input(type="number" name="cod-pesquisa" class="form-control" id="cod-pesquisa" placeholder="Pesquisar Produtos por Código")
+                    .form-group.col-md-3
+                        input(type="number" name="quant-pesquisa" class="form-control" id="quant-pesquisa" placeholder="Quantidade")
+                    .form-group.col-md-2  
                         button(class='btn btn-primary' onclick='search();') Adicionar
             .row 
                 .col-12   
@@ -34,19 +36,22 @@ block content
                                 th(scope="col") Quantidade
                                 th(scope="col") Preço
                         tbody(id="table-body")
-                           
+            .form-row
+                    .form-group.col-md-6
+                        input(type="date" name="val" class="form-control" id="val" placeholder="Data de Validade")
+                    .form-group.col-md-6
+                        input(type="number" name="v_preco" class="form-control" id="v_preco" placeholder="Preço de Venda")
             .row.d-flex.justify-content-end    
                 button.btn.btn-sm.btn-primary Cadastrar Manufatura
     script.
         function search() {
-            $.getJSON('http://localhost:3000/produto', function(data) {
-                console.log(data);
-                console.log(data[0].Nome);
-                const $new = $('<tr>').appendTo('#table-body')
-                $('<td>').html(data[0].Nome).appendTo($new)
-                $('<td>').html(data[0].Estoque).appendTo($new)
-                $('<td>').html(data[0].Preco).appendTo($new)
-            });         
-        }
-
+            if($('#cod-pesquisa').val() != ""){
+                $.getJSON('http://localhost:3000/produto/'+$('#cod-pesquisa').val(), function(data) {
+                    const $new = $('<tr>').appendTo('#table-body')
+                    $('<td>').html(data[0].Nome).appendTo($new)
+                    $('<td>').html($('#quant-pesquisa').val()).appendTo($new)
+                    $('<td>').html(data[0].Preco).appendTo($new)
+                }); 
+            }
+         }
         

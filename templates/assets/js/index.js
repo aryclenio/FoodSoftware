@@ -33,7 +33,7 @@ function execSQLQuery(sqlQry, res){
     host: 'localhost',
     user: 'root',
     password: 'root',
-    port: 3306,
+    port: 3308,
     database:'loja'
   });
  
@@ -42,8 +42,8 @@ function execSQLQuery(sqlQry, res){
         res.json(error);
       else
         res.json(results);
-      connection.end();
-      console.log('executou!');
+       connection.end();
+       console.log('executou!');
   });
 }
 
@@ -54,13 +54,27 @@ router.get('/produto', (req, res) =>{
 
 router.get('/produto/:id?', (req, res) =>{
   let filter = '';
-  if(req.params.id) filter = ' WHERE idProduto=' + parseInt(req.params.id);
+  if(req.params.id) filter = ' WHERE idProduto=' + parseFloat(req.params.id);
   execSQLQuery('SELECT * FROM produto' + filter, res);
 })
 
 
 //CADASTRA PRODUTO 
-router.post('/produto', (req, res) =>{
+router.post('/produto', (req, res) => {
+    const nome = req.body.nome;
+    const tipo = req.body.tipo;
+    const desc = req.body.desc;
+    const forn = req.body.forn;
+    const val = req.body.val;
+    const quant = req.body.quant;
+    const v_compra = req.body.v_compra;
+    const v_venda = req.body.v_venda;
+    
+    execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
+})
+//cad materia prima
+router.post('/produtoprima', (req, res) => {
+    console.log("aqui");
     const nome = req.body.nome;
     const tipo = req.body.tipo;
     const desc = req.body.desc;
@@ -72,6 +86,25 @@ router.post('/produto', (req, res) =>{
 
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
 })
+//cadastrar Manufatura
+router.post('/produtoprima', (req, res) => {
+    const nome = req.body.nome;
+    const tipo = req.body.tipo;
+    const desc = req.body.desc;
+    const forn = req.body.forn;
+    const val = req.body.val;
+    const quant = req.body.quant;
+    const v_compra = req.body.v_compra;
+    const v_venda = req.body.v_venda;
+    execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
+})
+//Procurar Manufatura
+router.get('/produtomanu/:nome?', (req, res) => {
+    let filter = '';
+    if (req.params.id) filter = ' WHERE Nome=' + req.params.nome;
+    execSQLQuery('SELECT * FROM produto' + filter, res);
+})
+//Cadastrar relacionamento manufatura
 
 //LOGIN DE FUNCIONÁRIO
 router.get('/funcionario/:email?', (req, res) =>{

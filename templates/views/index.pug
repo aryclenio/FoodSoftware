@@ -15,6 +15,7 @@ block content
 
     script.
         window.onload = $.getJSON('http://localhost:3000/usuario', function(data) {
+            console.log(data);
             if(data.funcao == 1){
                 $('#idcad-prod-rev').addClass('disabled');
                 $('#idcad-prod-prima').addClass('disabled');
