@@ -87,7 +87,7 @@ router.post('/produtoprima', (req, res) => {
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
 })
 //cadastrar Manufatura
-router.post('/produtoprima', (req, res) => {
+router.post('/produtomanu', (req, res) => {
     const nome = req.body.nome;
     const tipo = req.body.tipo;
     const desc = req.body.desc;
