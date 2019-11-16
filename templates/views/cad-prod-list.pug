@@ -1,0 +1,49 @@
+extends layout.pug
+block links
+    link(rel="stylesheet" href="dist/css/layout.css")
+    link(rel="stylesheet" href="dist/css/produto.css")
+block content
+    nav(aria-label="breadcrumb")
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href="/FoodSoftware") 
+                    i.fas.fa-home
+            li(class="breadcrumb-item active" aria-current="page") Cadastrar Matéria Prima
+    div.container.d-flex.align-items-center.justify-content-center
+        .subcontainer.p-4
+            h3.font-weight-bold.pb-4.text-primary Listagem de Produtos
+            .product-list.w-100
+                .form-row   
+                    .form-group.col-md-8
+                        select.custom-select(onchange="search()")
+                            option(selected disabled) Selecione o tipo
+                            option(value="1") Produto de Revenda
+                            option(value="2") Produto de Matéria-Prima
+                            option(value="3") Produto de Manufatura  
+                    .form-group.col-md-4
+                        button(type="submit" class="btn btn-primary justify-content-end w-100") Cadastrar Produto
+
+                table.table.table-sm.table-hover
+                    thead
+                        tr
+                            th(scope="col") Código
+                            th(scope="col") Nome do produto
+                            th(scope="col") Quantidade
+                            th(scope="col") Preço
+                    tbody#table-body
+    script.
+        function search(){
+        $.getJSON('http://localhost:3000/produto/'+$(".custom-select option:selected").val(), function(data) {
+            $('#table-body').html('');
+            data.forEach((i) =>{
+            const $new = $('<tr>').appendTo('#table-body')
+                    $('<td>').html(i.idProduto).appendTo($new)
+                    $('<td>').html(i.Nome).appendTo($new)
+                    $('<td>').html(i.Estoque).appendTo($new)
+                    $('<td>').html(i.Preco).appendTo($new)
+                    $('<td>').addClass('d-none').html(i.PrecoCompra).appendTo($new)
+            })
+        })
+        }
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?><html><head><title>Projeto PDSOFTWARE</title><link rel="stylesheet" href="dist/css/layout.css"/><link rel="stylesheet" href="dist/css/produto.css"/><link rel="stylesheet" href="dist/css/bootstrap.css"/><link rel="stylesheet" href="dist/css/fontawesome-free/css/all.css"/><script src="node_modules/jquery/dist/jquery.min.js"></script><script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script><script src="node_modules/popper.js/dist/umd/popper.min.js"></script><script>window.onload = $.getJSON('http://localhost:3000/usuario', function(data) {
+    $('#username').html(data.nome);
+});</script></head><body><header><nav class="navbar navbar-light bg-light d-flex justify-content-between"><a class="navbar-brand d-flex align-items-center" href="/FoodSoftware"> <img class="d-inline-block align-top" src="dist/img/logo.png" width="30" height="30" alt=""/><h6 class="mb-0 ml-3 font-weight-bold">iFome</h6></a><p class="m-0">BEM VINDO <span class="text-primary" id="username">NOME DO USUARIO </span></p></nav></header><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/FoodSoftware"> <i class="fas fa-home"></i></a></li><li class="breadcrumb-item active" aria-current="page">Cadastrar Matéria Prima</li></ol></nav><div class="container d-flex align-items-center justify-content-center"><div class="subcontainer p-4"><h3 class="font-weight-bold pb-4 text-primary">Listagem de Produtos</h3><div class="product-list w-100"><div class="form-row">  <div class="form-group col-md-8"><select class="custom-select" onchange="search()"><option selected="selected" disabled="disabled">Selecione o tipo</option><option value="1">Produto de Revenda</option><option value="2">Produto de Matéria-Prima</option><option value="3">Produto de Manufatura  </option></select></div><div class="form-group col-md-4"><button class="btn btn-primary justify-content-end w-100" type="submit">Cadastrar Produto</button></div></div><table class="table table-sm table-hover"><thead><tr><th scope="col">Código</th><th scope="col">Nome do produto</th><th scope="col">Quantidade</th><th scope="col">Preço</th></tr></thead><tbody id="table-body"></tbody></table></div></div></div><script>function search(){
+$.getJSON('http://localhost:3000/produto/'+$(".custom-select option:selected").val(), function(data) {
+    $('#table-body').html('');
+    data.forEach((i) =>{
+    const $new = $('<tr>').appendTo('#table-body')
+            $('<td>').html(i.idProduto).appendTo($new)
+            $('<td>').html(i.Nome).appendTo($new)
+            $('<td>').html(i.Estoque).appendTo($new)
+            $('<td>').html(i.Preco).appendTo($new)
+            $('<td>').addClass('d-none').html(i.PrecoCompra).appendTo($new)
+    })
+})
+}</script></body></html>

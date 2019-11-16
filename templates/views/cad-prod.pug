@@ -12,13 +12,16 @@ block content
             li(class="breadcrumb-item active" aria-current="page") Cadastrar Revenda
     div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
-            h3.font-weight-bold.pb-4.text-primary Cadastro de Produto de Revenda
+            h3.font-weight-bold.pb-4.text-primary Cadastro de Produto
             #cad-revenda
                 .form-row
                     .form-group.col-md-10
                         input(type="text" name="nome" class="form-control" id="nome" placeholder="Nome do produto")
                     .form-group.col-md-2
-                        input(type="text" name="tipo" class="form-control" id="tipo" placeholder="Tipo")
+                        select.custom-select
+                            option(selected disabled) Tipo
+                            option(value="1") Produto de Revenda
+                            option(value="2") Produto de Matéria-Prima
                 .form-row
                     .form-group.col-md-12
                         input(type="text" name="desc" class="form-control" id="desc" placeholder="Descrição")
@@ -50,7 +53,7 @@ block content
         function submit() {
             $.post( 'http://localhost:3000/produto', { 
                     nome: $('#nome').val(),
-                    tipo: $('#tipo').val(),
+                    tipo: $(".custom-select option:selected").val(),
                     desc: $('#desc').val(),
                     forn: $('#forn').val(),
                     val: $('#val').val(),

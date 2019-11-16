@@ -22,31 +22,34 @@ block content
                         h6 Média de Gastos Totais
                         .d-flex.align-items-center
                             i.fas.fa-arrow-down.text-danger.mr-2
-                            h6.text-danger.m-0 R$ 23,40
+                            h6.text-danger.m-0 R$ 
+                                span.text-danger#tot_gasto 23,40
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Média de Ganhos Totais
                         .d-flex.align-items-center
                             i.fas.fa-arrow-up.text-success.mr-2
-                            h6.text-success.m-0 R$ 23,40
+                            h6.text-success.m-0 R$ 
+                                span.text-success#tot_ganho 23,40
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Vendas Totais Realizadas
                         .d-flex.align-items-center
                             i.fas.fa-shopping-cart.text-warning.mr-2
-                            h6.text-warning.m-0 522
+                            h6.text-warning.m-0#tot_venda 522
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Lucro Total
                         .d-flex.align-items-center
                             i.fas.fa-dollar-sign.text-primary.mr-2
-                            h6.text-primary.m-0 R$ 6.000,20
+                            h6.text-primary.m-0 R$ 
+                                span.text-primary#tot_lucro 23,40
             .row.pb-3
                 .col-12
                     h5.text-primary Lucros Brutos
                 .col-12
-                    select.custom-select
-                        option(selected) Selecione o periodo
+                    select.custom-select(onchange="getData()")
+                        option(selected disabled) Selecione o periodo
                         option(value="1") Diário
                         option(value="2") Mensal
                         option(value="3") Anual  
@@ -56,23 +59,62 @@ block content
                         h6 Gastos
                         .d-flex.align-items-center
                             i.fas.fa-arrow-down.text-danger.mr-2
-                            h6.text-danger.m-0 R$ 23,40
+                            h6.text-danger.m-0 R$ 
+                                span.text-danger#dat_gasto -
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Ganhos
                         .d-flex.align-items-center
                             i.fas.fa-arrow-up.text-success.mr-2
-                            h6.text-success.m-0 R$ 23,40
+                            h6.text-success.m-0 R$ 
+                                span.text-success#dat_ganho -
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Vendas Realizadas
                         .d-flex.align-items-center
                             i.fas.fa-shopping-cart.text-warning.mr-2
-                            h6.text-warning.m-0 522
+                            h6.text-warning.m-0#dat_venda -
                 .col-6.mt-2
                     .item-fin.p-3.border.rounded
                         h6 Lucro 
                         .d-flex.align-items-center
                             i.fas.fa-dollar-sign.text-primary.mr-2
-                            h6.text-primary.m-0 R$ 6.000,20
+                            h6.text-primary.m-0 R$ 
+                                span.text-primary#dat_lucro -
+    script.
+        $(document).ready( function () {
+            $.getJSON('http://localhost:3000/financeiro/total', function(data) {
+                $('#tot_gasto').html(data[0].tot_gasto);
+                $('#tot_ganho').html(data[0].tot_ganho);
+                $('#tot_venda').html(data[0].tot_venda);
+                $('#tot_lucro').html(parseInt($('#tot_ganho').html()) - parseInt($('#tot_gasto').html()));
+            
+            })
+        });
+
+        function getData(){
+            var tipo = $(".custom-select option:selected").val();
+            if(tipo ==1){
+                $.getJSON('http://localhost:3000/financeiro/dia/'+String(new Date().getDate()).padStart(2, '0'), function(data) {
+                    $('#dat_gasto').html(data[0].dat_gasto);
+                    $('#dat_ganho').html(data[0].dat_ganho);
+                    $('#dat_venda').html(data[0].dat_venda);
+                    $('#dat_lucro').html(parseInt($('#dat_ganho').html()) - parseInt($('#dat_gasto').html()));
+                })
+            }else if(tipo ==2){
+                $.getJSON('http://localhost:3000/financeiro/data/'+new Date().getFullYear()+ '-'+String(new Date().getMonth() + 1).padStart(2, '0'), function(data) {
+                    $('#dat_gasto').html(data[0].dat_gasto);
+                    $('#dat_ganho').html(data[0].dat_ganho);
+                    $('#dat_venda').html(data[0].dat_venda);
+                    $('#dat_lucro').html(parseInt($('#dat_ganho').html()) - parseInt($('#dat_gasto').html()));
+                })
+            }else{
+                $.getJSON('http://localhost:3000/financeiro/data/'+new Date().getFullYear(), function(data) {
+                    $('#dat_gasto').html(data[0].dat_gasto);
+                    $('#dat_ganho').html(data[0].dat_ganho);
+                    $('#dat_venda').html(data[0].dat_venda);
+                    $('#dat_lucro').html(parseInt($('#dat_ganho').html()) - parseInt($('#dat_gasto').html()));
+                })
+            }
+        }
             
