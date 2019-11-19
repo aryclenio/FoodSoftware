@@ -32,6 +32,7 @@ block content
                     table.table.table-sm.table-hover
                         thead
                             tr
+                                th(scope="col") Código
                                 th(scope="col") Nome do produto
                                 th(scope="col") Quantidade
                                 th(scope="col") Preço
@@ -42,21 +43,23 @@ block content
                     .form-group.col-md-6
                         input(type="number" name="v_preco" class="form-control" id="v_preco" placeholder="Preço de Venda")
             .row.d-flex.justify-content-end    
-                button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();location.reload();") Cadastrar Manufatura
+                button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();") Cadastrar Manufatura
     script.
+        let prodCad = [];
        function search() {
             if($('#cod-pesquisa').val() != "" && $('#quant-pesquisa').val() ){
                 $.getJSON('http://localhost:3000/produto/'+$('#cod-pesquisa').val(), function(data) {
                     const $new = $('<tr>').appendTo('#table-body')
+                    $('<td>').html(data[0].idProduto).appendTo($new)
                     $('<td>').html(data[0].Nome).appendTo($new)
                     $('<td>').html($('#quant-pesquisa').val()).appendTo($new)
                     $('<td>').html(data[0].Preco).appendTo($new)
                 }); 
             }
-         }
-                  function cadastrarManufatura() {
+        }
+        function cadastrarManufatura() {
             if($('#nome').val() != "" && $('#quant').val() ){
-                $.post( 'http://localhost:3000/produtomanu', { 
+                $.post( 'http://localhost:3000/produto/manufatura', { 
                     nome: $('#nome').val(),
                     tipo: "3",
                     desc:"gostoso",
@@ -65,11 +68,15 @@ block content
                     quant: $('#quant').val(),
                     v_compra:"0.0",
                     v_venda: $('#v_preco').val()
-                }); 
+                });
+                $('td:nth-child(3)').each(function(i){
+                    prodCad[i] = {id: $(this).prev().prev().html(), quant: $(this).html()};  
+                })
+                console.log(prodCad);
                 alert("produtão cadastrado");
-                //$.getJSON('http://localhost:3000/produtomanu/'+$('#nome').val(), function(data) {
-                  //  alert(data);
-                //}); 
+                $.getJSON('http://localhost:3000/produto/manufatura/'+$('#nome').val(), function(data) {
+                    alert(data[0].idProduto);
+                }); 
             }
          }
 

@@ -6,6 +6,7 @@ body {
   border: 1px solid #ccc;
   background-color: #f3f3f3;
   border-radius: 20px !important;
+  min-width: 700px;
   opacity: 0.9;
 }
 

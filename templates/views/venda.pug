@@ -61,9 +61,9 @@ block content
                         .row
                             select.custom-select
                                 option(selected disabled) Escolha a forma de pagamento
-                                option(value="1") Cartão de Crédito
-                                option(value="2") Cartão de Débito
-                                option(value="3") Especie              
+                                option(value="credito") Cartão de Crédito
+                                option(value="debito") Cartão de Débito
+                                option(value="especie") Especie              
                     .modal-footer.d-flex.justify-content-center.border-0
                         button(type="button" class="btn btn-sm btn-primary" id="pagamento" onclick="conf()") Confirmar Pagamento
                         button(type="button" class="btn btn-sm btn-secondary" data-dismiss="modal") Cancelar Pagamento
@@ -78,33 +78,48 @@ block content
                     .modal-footer.d-flex.justify-content-center.border-0
                         button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="location.reload();") OK
     script.
-        let somaTot = 0;
+        let somaTot = 0, somaCompra = 0;
         const pag = () => {
             $('#modal-conf-venda').modal('hide');
             $('#modal-pag').modal('show');     
         }        
         const conf = () => {
             $('#modal-pag').modal('hide');
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            console.log(today);
+            $.post( 'http://localhost:3000/venda', { 
+                    data: today,
+                    desc: $(".custom-select option:selected").val(),
+                    valCompra: somaCompra,
+                    val: $('#somaModal').html()
+                });
             $('#modal-pag-conf').modal('show');     
         }                  
         function search() {
             if($('#cod').val() != "" && $('#quant').val() != ""){
                 $.getJSON('http://localhost:3000/produto/'+$('#cod').val(), function(data) {
-                    console.log(data);
                     const $new = $('<tr>').appendTo('#table-body')
                     $('<td>').html(data[0].idProduto).appendTo($new)
                     $('<td>').html(data[0].Nome).appendTo($new)
                     $('<td>').html($('#quant').val()).appendTo($new)
                     $('<td>').html(data[0].Preco).appendTo($new)
+                    $('<td>').addClass('d-none').html(data[0].PrecoCompra).appendTo($new)
                     atualizaSoma()
                 })
             }
         }
         
         function atualizaSoma(){
-            somaTot = 0;
+            somaTot = 0, somaCompra = 0;
             $('td:nth-child(4)').each(function(){
                 somaTot = somaTot+ (parseInt($(this).html()) * parseInt($(this).prev().html()));
+            })
+            $('td:nth-child(5)').each(function(){
+                somaCompra = somaCompra+ (parseInt($(this).html()) * parseInt($(this).prev().prev().html()));
             })
             $('#somaTot').html(parseFloat(somaTot));
             $('#somaModal').html(parseFloat(somaTot));

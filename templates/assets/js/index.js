@@ -42,12 +42,12 @@ function execSQLQuery(sqlQry, res){
         res.json(error);
       else
         res.json(results);
-       connection.end();
-       console.log('executou!');
+      connection.end();
+      console.log('Consulta no Banco Realizada');
   });
 }
 
-//SELECIONA PRODUTO
+//---------------------------------SELECIONA PRODUTO--------------------------------------------
 router.get('/produto', (req, res) =>{
     execSQLQuery('SELECT * FROM produto', res);
 })
@@ -58,9 +58,14 @@ router.get('/produto/:id?', (req, res) =>{
   execSQLQuery('SELECT * FROM produto' + filter, res);
 })
 
+router.get('/produto/busca/:id?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ' WHERE Tipo=' + parseInt(req.params.id);
+  execSQLQuery('SELECT * FROM produto' + filter, res);
+})
 
-//CADASTRA PRODUTO 
-router.post('/produto', (req, res) => {
+//----------------------------------CADASTRA PRODUTO-------------------------------------------
+router.post('/produto', (req, res) =>{
     const nome = req.body.nome;
     const tipo = req.body.tipo;
     const desc = req.body.desc;
@@ -87,7 +92,7 @@ router.post('/produtoprima', (req, res) => {
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
 })
 //cadastrar Manufatura
-router.post('/produtomanu', (req, res) => {
+router.post('/produto/manufatura', (req, res) => {
     const nome = req.body.nome;
     const tipo = req.body.tipo;
     const desc = req.body.desc;
@@ -99,21 +104,21 @@ router.post('/produtomanu', (req, res) => {
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
 })
 //Procurar Manufatura
-router.get('/produtomanu/:nome?', (req, res) => {
+router.get('/produto/manufatura/:nome?', (req, res) => {
     let filter = '';
-    if (req.params.id) {
-        filter = ' WHERE Nome = ' + ParseInt(req.params.nome);
+    if (req.params.nome) {
+        filter = `WHERE Nome = '${req.params.nome}'`;
         execSQLQuery('SELECT * FROM produto ' + filter, res);
     }
 })
 
-//LOGIN DE FUNCIONÁRIO
+//-----------------------------------LOGIN DE FUNCIONÁRIO-------------------------------------
 router.get('/funcionario/:email?', (req, res) =>{
   let filter = '';
   if(req.params.id) filter = ' WHERE Email=' + parseInt(req.params.email);
   execSQLQuery('SELECT * FROM funcionario' + filter, res);
 })
-//CADASTRA FUNCIONÁRIO
+//-----------------------------------CADASTRA FUNCIONÁRIO-------------------------------------
 router.post('/funcionario', (req, res) =>{
   const nome = req.body.nome;
   const cpf = req.body.cpf;
@@ -126,6 +131,7 @@ router.post('/funcionario', (req, res) =>{
   execSQLQuery(`INSERT INTO funcionario(Nome,CPF,Funcao,Salario,Login,Email,Senha, PrioridadeSistema) values('${nome}','${cpf}','${func}','${sal}','${user}','${email}', '${senha}', 1)`, res);
 })
 
+//------------------------------LOGIN DE FUNCIONARIO----------------------------------
 router.post('/usuario', (req, res) =>{
   usuario.nome = req.body.nome;
   usuario.funcao = req.body.funcao;
@@ -133,3 +139,31 @@ router.post('/usuario', (req, res) =>{
 router.get('/usuario', (req, res) =>{
   res.send(usuario);
 })
+
+//------------------------------CADASTRO DE VENDA--------------------------------------
+router.post('/venda', (req, res) =>{
+  const data = req.body.data;
+  const desc = req.body.desc;
+  const val = req.body.val;
+  const valCompra = req.body.valCompra;
+
+  execSQLQuery(`INSERT INTO venda(dataVenda,descricaoPagamento,ValorTotal,GastoTotal) values('${data}','${desc}','${val}', '${valCompra}')`, res);
+})
+
+//----------------------------CALCULOS DO FINANCEIRO--------------------------------------
+router.get('/financeiro/total', (req, res) =>{
+  execSQLQuery('SELECT SUM(GastoTotal) AS tot_gasto, COUNT(*) AS tot_venda, SUM(ValorTotal) AS tot_ganho FROM venda', res);
+})
+
+router.get('/financeiro/dia/:id?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ` WHERE dataVenda LIKE '%${req.params.id}'`;
+  execSQLQuery('SELECT SUM(GastoTotal) AS dat_gasto, COUNT(*) AS dat_venda, SUM(ValorTotal) AS dat_ganho FROM venda' + filter, res);
+})
+
+router.get('/financeiro/data/:id?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ` WHERE dataVenda LIKE '${req.params.id}%'`;
+  execSQLQuery('SELECT SUM(GastoTotal) AS dat_gasto, COUNT(*) AS dat_venda, SUM(ValorTotal) AS dat_ganho FROM venda' + filter, res);
+})
+
