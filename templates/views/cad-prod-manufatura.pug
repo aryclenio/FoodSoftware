@@ -35,6 +35,7 @@ block content
                                 th(scope="col") Código
                                 th(scope="col") Nome do produto
                                 th(scope="col") Quantidade
+                                th(scope="col") Estoque
                                 th(scope="col") Preço
                         tbody(id="table-body")
             .form-row
@@ -46,6 +47,7 @@ block content
                 button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();") Cadastrar Manufatura
     script.
         let prodCad = [];
+        let data = [];
        function search() {
             if($('#cod-pesquisa').val() != "" && $('#quant-pesquisa').val() ){
                 $.getJSON('http://localhost:3000/produto/'+$('#cod-pesquisa').val(), function(data) {
@@ -53,6 +55,7 @@ block content
                     $('<td>').html(data[0].idProduto).appendTo($new)
                     $('<td>').html(data[0].Nome).appendTo($new)
                     $('<td>').html($('#quant-pesquisa').val()).appendTo($new)
+                    $('<td>').html(data[0].Estoque).appendTo($new)
                     $('<td>').html(data[0].Preco).appendTo($new)
                 }); 
             }
@@ -69,14 +72,22 @@ block content
                     v_compra:"0.0",
                     v_venda: $('#v_preco').val()
                 });
-                $('td:nth-child(3)').each(function(i){
-                    prodCad[i] = {id: $(this).prev().prev().html(), quant: $(this).html()};  
+                $('td:nth-child(4)').each(function(i){
+                    prodCad[i] = {id: $(this).prev().prev().prev().html(), quant: $(this).prev().html(),estoque: $(this).html()};  
                 })
                 console.log(prodCad);
                 alert("produtão cadastrado");
+                 let iden
                 $.getJSON('http://localhost:3000/produto/manufatura/'+$('#nome').val(), function(data) {
-                    alert(data[0].idProduto);
+                    iden=data[0].idProduto;
                 }); 
+                var i;
+                for(i=0; i<prodCad.length ;i++){
+                    let e = parseInt(prodCad[i].estoque) - parseInt(prodCad[i].quant); 
+                     alert(e);
+                    $.post('http://localhost:3000/receita',{MateriaPrima:prodCad[i].id,ProdutoComposto:iden,medida:prodCad[i].quant});
+                    alert("aqui");                
+                }
             }
          }
 

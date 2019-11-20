@@ -111,7 +111,24 @@ router.get('/produto/manufatura/:nome?', (req, res) => {
         execSQLQuery('SELECT * FROM produto ' + filter, res);
     }
 })
-
+//atualiza o estoque do produto apos manufatura
+router.put('/produto/manufatura', (req, res) => {
+    const id = parseInt(req.body.id);
+    const estoque = parseInt(req.body.estoque);
+    execSQLQuery(`UPDATE Produto SET Estoque=${estoque} WHERE idProduto=${id}`, res);
+})
+//Cadastro de receita
+router.post('/receita', (req, res) => {
+    const MP = parseInt(req.body.MateriaPrima);
+    const composto = parseInt(req.body.ProdutoComposto);
+    const medidas = parseInt(req.body.medida);
+    execSQLQuery(`INSERT INTO receita(ProdutoComposto,ProdutoMP,Medida) values(${composto},${MP},${medidas})`, res);
+    console.log("receita cadastrada");
+})
+//Selecionar receita
+router.get('/receita/', (req, res) => {
+    execSQLQuery('SELECT * FROM receita', res);
+})
 //-----------------------------------LOGIN DE FUNCIONÁRIO-------------------------------------
 router.get('/funcionario/:email?', (req, res) =>{
   let filter = '';
