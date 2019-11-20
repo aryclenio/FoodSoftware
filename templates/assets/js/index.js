@@ -112,8 +112,8 @@ router.get('/produto/manufatura/:nome?', (req, res) => {
     }
 })
 //atualiza o estoque do produto apos manufatura
-router.put('/produto/manufatura', (req, res) => {
-    const id = parseInt(req.body.id);
+router.post('/produto/manufatura/novo/:id', (req, res) => {
+    const id = parseInt(req.params.id);
     const estoque = parseInt(req.body.estoque);
     execSQLQuery(`UPDATE Produto SET Estoque=${estoque} WHERE idProduto=${id}`, res);
 })

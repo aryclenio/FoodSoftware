@@ -40,7 +40,8 @@ function search() {
              let e = parseInt(prodCad[i].estoque) - parseInt(prodCad[i].quant); 
               alert(e);
              $.post('http://localhost:3000/receita',{MateriaPrima:prodCad[i].id,ProdutoComposto:iden,medida:prodCad[i].quant});
-             alert("aqui");                
+             $.post('http://localhost:3000/produto/manufatura/novo/'+prodCad[i].id,{estoque:e});
+             alert("aqui");           
          }
      }
   }
