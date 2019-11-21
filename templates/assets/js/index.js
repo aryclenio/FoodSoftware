@@ -77,6 +77,18 @@ router.post('/produto', (req, res) =>{
     
     execSQLQuery(`INSERT INTO produto(Nome,Descricao,Fornecedor,Validade,Tipo,Estoque,Preco,PrecoCompra) values('${nome}','${desc}','${forn}','${val}','${tipo}', '${quant}', '${v_venda}', '${v_compra}')`, res);
 })
+router.post('/produto/:id?', (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ' WHERE idProduto=' + parseInt(req.params.id);
+  const nome = req.body.nome;
+  const desc = req.body.desc;
+  const forn = req.body.forn;
+  const val = req.body.val;
+  const quant = req.body.quant;
+  const v_compra = req.body.v_compra;
+  const v_venda = req.body.v_venda;
+  execSQLQuery(`UPDATE produto SET Nome='${nome}', Descricao='${desc}', Fornecedor='${forn}', Validade='${val}', Estoque='${quant}', Preco='${v_venda}', PrecoCompra='${v_compra}' `+ filter, res);
+})
 //cad materia prima
 router.post('/produtoprima', (req, res) => {
     console.log("aqui");
