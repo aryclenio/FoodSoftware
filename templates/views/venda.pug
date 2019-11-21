@@ -102,6 +102,7 @@ block content
         function search() {
             if($('#cod').val() != ""){
                 $.getJSON('http://localhost:3000/produto/'+$('#cod').val(), function(data) {
+                    console.log(data);
                     const $new = $('<tr>').appendTo('#table-body')
                     $('<td>').html(data[0].idProduto).appendTo($new)
                     $('<td>').html(data[0].Nome).appendTo($new)

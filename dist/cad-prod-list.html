@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?><html><head><title>Projeto PDSOFTWARE</title><link rel="stylesheet" href="dist/css/layout.css"/><link rel="stylesheet" href="dist/css/produto.css"/><link rel="stylesheet" href="dist/css/bootstrap.css"/><link rel="stylesheet" href="dist/css/fontawesome-free/css/all.css"/><script src="node_modules/jquery/dist/jquery.min.js"></script><script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script><script src="node_modules/popper.js/dist/umd/popper.min.js"></script><script>window.onload = $.getJSON('http://localhost:3000/usuario', function(data) {
     $('#username').html(data.nome);
-});</script></head><body><header><nav class="navbar navbar-light bg-light d-flex justify-content-between"><a class="navbar-brand d-flex align-items-center" href="/FoodSoftware"> <img class="d-inline-block align-top" src="dist/img/logo.png" width="30" height="30" alt=""/><h6 class="mb-0 ml-3 font-weight-bold">iFome</h6></a><p class="m-0">BEM VINDO <span class="text-primary" id="username">NOME DO USUARIO </span></p></nav></header><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/FoodSoftware"> <i class="fas fa-home"></i></a></li><li class="breadcrumb-item active" aria-current="page">Cadastrar Matéria Prima</li></ol></nav><div class="container d-flex align-items-center justify-content-center"><div class="subcontainer p-4"><h3 class="font-weight-bold pb-4 text-primary">Listagem de Produtos</h3><div class="product-list w-100"><div class="form-row">  <div class="form-group col-md-8"><select class="custom-select" onchange="search()"><option selected="selected" disabled="disabled">Selecione o tipo</option><option value="1">Produto de Revenda</option><option value="2">Produto de Matéria-Prima</option><option value="3">Produto de Manufatura  </option></select></div><div class="form-group col-md-4"><button class="btn btn-primary justify-content-end w-100" type="submit">Cadastrar Produto</button></div></div><table class="table table-sm table-hover"><thead><tr><th scope="col">Código</th><th scope="col">Nome do produto</th><th scope="col">Quantidade</th><th scope="col">Preço</th></tr></thead><tbody id="table-body"></tbody></table></div></div></div><script>function search(){
+});</script></head><body><header><nav class="navbar navbar-light bg-light d-flex justify-content-between"><a class="navbar-brand d-flex align-items-center" href="/FoodSoftware"> <img class="d-inline-block align-top" src="dist/img/logo.png" width="30" height="30" alt=""/><h6 class="mb-0 ml-3 font-weight-bold">iFome</h6></a><p class="m-0">BEM VINDO <span class="text-primary" id="username">NOME DO USUARIO </span></p></nav></header><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/FoodSoftware"> <i class="fas fa-home"></i></a></li><li class="breadcrumb-item active" aria-current="page">Listagem de Produtos</li></ol></nav><div class="container d-flex align-items-center justify-content-center"><div class="subcontainer p-4"><h3 class="font-weight-bold pb-4 text-primary">Listagem de Produtos</h3><div class="product-list w-100"><div class="form-row">  <div class="form-group col-md-12"><select class="custom-select" onchange="search()"><option selected="selected" disabled="disabled">Selecione o tipo</option><option value="1">Produto de Revenda</option><option value="2">Produto de Matéria-Prima</option><option value="3">Produto de Manufatura  </option></select></div></div><table class="table table-sm table-hover"><thead><tr><th scope="col">Código</th><th scope="col">Nome do produto</th><th scope="col">Quantidade</th><th scope="col">Preço</th></tr></thead><tbody id="table-body"></tbody></table></div></div><div class="modal fade" id="modal-pag-conf" tabindex="-1" role="dialog" aria-labelledby="modal-pag-conf-Label" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header d-flex justify-content-center border-0"><h5 class="modal-title text-primary" id="modal-pag-conf-Label">Editar Produto        </h5></div><div class="modal-body py-0"><div class="form-row"><div class="form-group col-md-2"><input class="form-control" type="text" name="id" id="id" placeholder="Codigo"/></div><div class="form-group col-md-10"><input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do produto"/></div></div><div class="form-row"><div class="form-group col-md-12"><input class="form-control" type="text" name="desc" id="desc" placeholder="Descrição"/></div></div><div class="form-row"><div class="form-group col-md-6"><input class="form-control" type="text" name="forn" id="forn" placeholder="Fornecedor"/></div><div class="form-group col-md-6"><input class="form-control" type="Date" name="val" id="val" placeholder="Validade"/></div></div><div class="form-row">  <div class="form-group col-md-4"><input class="form-control" type="number" name="quant" id="quant" placeholder="Quantidade"/></div><div class="form-group col-md-4"><input class="form-control" type="number" name="v_compra" id="v_compra" placeholder="Valor de Compra (R$)"/></div><div class="form-group col-md-4"><input class="form-control" type="number" name="v_venda" id="v_venda" placeholder="Valor de Venda (R$)"/></div></div></div><div class="modal-footer d-flex justify-content-center border-0"><button class="btn btn-sm btn-primary" type="button" data-dismiss="modal" onclick="confirmaEditar(); location.reload();">Confirmar Edição</button></div></div></div></div></div><script>function search(){
 $.getJSON('http://localhost:3000/produto/'+$(".custom-select option:selected").val(), function(data) {
     $('#table-body').html('');
     data.forEach((i) =>{
@@ -9,7 +9,42 @@ $.getJSON('http://localhost:3000/produto/'+$(".custom-select option:selected").v
             $('<td>').html(i.Nome).appendTo($new)
             $('<td>').html(i.Estoque).appendTo($new)
             $('<td>').html(i.Preco).appendTo($new)
+            let $remover = $('<td>').appendTo($new);
+            let $button = $('<button>').addClass('btn btn-sm p-0').attr('id',i.idProduto).attr('onclick', 'editar(this.id)').appendTo($remover);
+            $('<i>').addClass('fas fa-edit').css('font-size', '14px').appendTo($button);
             $('<td>').addClass('d-none').html(i.PrecoCompra).appendTo($new)
     })
 })
+}
+
+function editar(id){
+    $.getJSON('http://localhost:3000/produto/'+id, function(data) {
+        $('#modal-pag-conf').attr('id', id).modal('show');
+            console.log(data);
+            let dataV = new Date(data[0].Validade)
+            var dd = String(dataV.getDate()).padStart(2, '0');
+            var mm = String(dataV.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = dataV.getFullYear();
+            dataV = yyyy + '-' + mm + '-' + dd;
+            console.log(dataV)
+            $('#id').val(data[0].idProduto)
+            $('#nome').val(data[0].Nome)
+            $('#desc').val(data[0].Descricao)
+            $('#forn').val(data[0].Fornecedor)
+            $('#val').val(dataV)
+            $('#quant').val(data[0].Estoque)
+            $('#v_compra').val(data[0].PrecoCompra)
+            $('#v_venda').val(data[0].Preco)
+        })
+}
+function confirmaEditar(){
+    $.post( 'http://localhost:3000/produto/'+$('#id').val(), { 
+            nome: $('#nome').val(),
+            desc: $('#desc').val(),
+            forn: $('#forn').val(),
+            val: $('#val').val(),
+            quant: $('#quant').val(),
+            v_compra: $('#v_compra').val(),
+            v_venda: $('#v_venda').val()
+        });
 }</script></body></html>

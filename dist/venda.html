@@ -22,14 +22,19 @@ const conf = () => {
     $('#modal-pag-conf').modal('show');     
 }                  
 function search() {
-    if($('#cod').val() != "" && $('#quant').val() != ""){
+    if($('#cod').val() != ""){
         $.getJSON('http://localhost:3000/produto/'+$('#cod').val(), function(data) {
+            console.log(data);
             const $new = $('<tr>').appendTo('#table-body')
             $('<td>').html(data[0].idProduto).appendTo($new)
             $('<td>').html(data[0].Nome).appendTo($new)
             $('<td>').html($('#quant').val()).appendTo($new)
             $('<td>').html(data[0].Preco).appendTo($new)
+            let $remover = $('<td>').appendTo($new);
+            let $button = $('<button>').addClass('btn btn-sm p-0').attr('onclick', 'remover(this)').appendTo($remover);
+            $('<i>').addClass('fas fa-minus').css('font-size', '12px').appendTo($button);
             $('<td>').addClass('d-none').html(data[0].PrecoCompra).appendTo($new)
+            
             atualizaSoma()
         })
     }
@@ -46,4 +51,8 @@ function atualizaSoma(){
     $('#somaTot').html(parseFloat(somaTot));
     $('#somaModal').html(parseFloat(somaTot));
      
+}
+function remover(el){
+    $(el).parent().parent().remove();
+    atualizaSoma();
 }</script></body></html>
