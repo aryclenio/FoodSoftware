@@ -15,17 +15,15 @@ block content
 
     script.
         window.onload = $.getJSON('http://localhost:3000/usuario', function(data) {
-            console.log(data);
             if(data.funcao == 1){
-                $('#idcad-prod-rev').addClass('disabled');
-                $('#idcad-prod-prima').addClass('disabled');
+                $('#idcad-prod').addClass('disabled');
+                $('#idcad-prod-list').addClass('disabled');
                 $('#idcad-prod-manufatura').addClass('disabled');
                 $('#idfinanceiro').addClass('disabled');
             }
             if(data.funcao == 2){
                 $('#idvenda').addClass('disabled');
-                $('#idcad-prod-rev').addClass('disabled');
-                $('#idcad-prod-prima').addClass('disabled');
+                $('#idcad-prod').addClass('disabled');
                 $('#idcad-prod-manufatura').addClass('disabled');
             }
             if(data.funcao == 3){
