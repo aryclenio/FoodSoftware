@@ -8,20 +8,19 @@ block content
             li.breadcrumb-item
                 a(href="/FoodSoftware") 
                     i.fas.fa-home
-            li(class="breadcrumb-item active" aria-current="page") Cadastrar Matéria Prima
+            li(class="breadcrumb-item active" aria-current="page") Listagem de Produtos
     div.container.d-flex.align-items-center.justify-content-center
         .subcontainer.p-4
             h3.font-weight-bold.pb-4.text-primary Listagem de Produtos
             .product-list.w-100
                 .form-row   
-                    .form-group.col-md-8
+                    .form-group.col-md-12
                         select.custom-select(onchange="search()")
                             option(selected disabled) Selecione o tipo
                             option(value="1") Produto de Revenda
                             option(value="2") Produto de Matéria-Prima
                             option(value="3") Produto de Manufatura  
-                    .form-group.col-md-4
-                        button(type="submit" class="btn btn-primary justify-content-end w-100") Cadastrar Produto
+
 
                 table.table.table-sm.table-hover
                     thead
@@ -31,6 +30,34 @@ block content
                             th(scope="col") Quantidade
                             th(scope="col") Preço
                     tbody#table-body
+        div(class="modal fade" id="modal-pag-conf" tabindex="-1" role="dialog" aria-labelledby="modal-pag-conf-Label" aria-hidden="true")
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                .modal-content
+                    .modal-header.d-flex.justify-content-center.border-0
+                        h5(class="modal-title text-primary" id="modal-pag-conf-Label") Editar Produto        
+                    .modal-body.py-0
+                        .form-row
+                            .form-group.col-md-2
+                                input(type="text" name="id" class="form-control" id="id" placeholder="Codigo")
+                            .form-group.col-md-10
+                                input(type="text" name="nome" class="form-control" id="nome" placeholder="Nome do produto")
+                        .form-row
+                            .form-group.col-md-12
+                                input(type="text" name="desc" class="form-control" id="desc" placeholder="Descrição")
+                        .form-row
+                            .form-group.col-md-6
+                                input(type="text" name="forn" class="form-control" id="forn" placeholder="Fornecedor")
+                            .form-group.col-md-6
+                                input(type="Date" name="val" class="form-control" id="val" placeholder="Validade")
+                        .form-row   
+                            .form-group.col-md-4
+                                input(type="number" name="quant" class="form-control" id="quant" placeholder="Quantidade")
+                            .form-group.col-md-4
+                                input(type="number" name="v_compra" class="form-control" id="v_compra" placeholder="Valor de Compra (R$)")
+                            .form-group.col-md-4
+                                input(type="number" name="v_venda" class="form-control" id="v_venda" placeholder="Valor de Venda (R$)")
+                    .modal-footer.d-flex.justify-content-center.border-0
+                        button(type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="confirmaEditar(); location.reload();") Confirmar Edição
     script.
         function search(){
         $.getJSON('http://localhost:3000/produto/'+$(".custom-select option:selected").val(), function(data) {
@@ -41,9 +68,43 @@ block content
                     $('<td>').html(i.Nome).appendTo($new)
                     $('<td>').html(i.Estoque).appendTo($new)
                     $('<td>').html(i.Preco).appendTo($new)
+                    let $remover = $('<td>').appendTo($new);
+                    let $button = $('<button>').addClass('btn btn-sm p-0').attr('id',i.idProduto).attr('onclick', 'editar(this.id)').appendTo($remover);
+                    $('<i>').addClass('fas fa-edit').css('font-size', '14px').appendTo($button);
                     $('<td>').addClass('d-none').html(i.PrecoCompra).appendTo($new)
             })
         })
         }
 
+        function editar(id){
+            $.getJSON('http://localhost:3000/produto/'+id, function(data) {
+                $('#modal-pag-conf').attr('id', id).modal('show');
+                    console.log(data);
+                    let dataV = new Date(data[0].Validade)
+                    var dd = String(dataV.getDate()).padStart(2, '0');
+                    var mm = String(dataV.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = dataV.getFullYear();
+                    dataV = yyyy + '-' + mm + '-' + dd;
+                    console.log(dataV)
+                    $('#id').val(data[0].idProduto)
+                    $('#nome').val(data[0].Nome)
+                    $('#desc').val(data[0].Descricao)
+                    $('#forn').val(data[0].Fornecedor)
+                    $('#val').val(dataV)
+                    $('#quant').val(data[0].Estoque)
+                    $('#v_compra').val(data[0].PrecoCompra)
+                    $('#v_venda').val(data[0].Preco)
+                })
+        }
+        function confirmaEditar(){
+            $.post( 'http://localhost:3000/produto/'+$('#id').val(), { 
+                    nome: $('#nome').val(),
+                    desc: $('#desc').val(),
+                    forn: $('#forn').val(),
+                    val: $('#val').val(),
+                    quant: $('#quant').val(),
+                    v_compra: $('#v_compra').val(),
+                    v_venda: $('#v_venda').val()
+                });
+        }
 
