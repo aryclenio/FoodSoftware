@@ -33,7 +33,7 @@ function execSQLQuery(sqlQry, res){
     host: 'localhost',
     user: 'root',
     password: 'root',
-    port: 3306,
+    port: 3308,
     database:'loja'
   });
  
@@ -128,6 +128,12 @@ router.post('/produto/manufatura/novo/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const estoque = parseInt(req.body.estoque);
     execSQLQuery(`UPDATE Produto SET Estoque=${estoque} WHERE idProduto=${id}`, res);
+})
+//atualiza o estoque do produto apos venda
+router.post('/venda/novo/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const quant = parseInt(req.body.quant);
+    execSQLQuery(`UPDATE Produto SET Estoque=Estoque-${quant} WHERE idProduto=${id}`, res);
 })
 //Cadastro de receita
 router.post('/receita', (req, res) => {

@@ -44,7 +44,7 @@ block content
                     .form-group.col-md-6
                         input(type="number" name="v_preco" class="form-control" id="v_preco" placeholder="Preço de Venda")
             .row.d-flex.justify-content-end    
-                button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();") Cadastrar Manufatura
+                button(class="btn btn-sm btn-primary" onclick="cadastrarManufatura();location.reload();") Cadastrar Manufatura
     script.
         let prodCad = [];
         let data = [];
@@ -76,7 +76,7 @@ block content
                     prodCad[i] = {id: $(this).prev().prev().prev().html(), quant: $(this).prev().html(),estoque: $(this).html()};  
                 })
                 console.log(prodCad);
-                alert("produtão cadastrado");
+                alert("produto cadastrado");
                  let iden
                 $.getJSON('http://localhost:3000/produto/manufatura/'+$('#nome').val(), function(data) {
                     iden=data[0].idProduto;
@@ -84,10 +84,8 @@ block content
                 var i;
                 for(i=0; i<prodCad.length ;i++){
                     let e = parseInt(prodCad[i].estoque) - parseInt(prodCad[i].quant); 
-                     alert(e);
                     $.post('http://localhost:3000/receita',{MateriaPrima:prodCad[i].id,ProdutoComposto:iden,medida:prodCad[i].quant});
                     $.post('http://localhost:3000/produto/manufatura/novo/'+prodCad[i].id,{estoque:e});
-                    alert("aqui");           
                 }
             }
          }

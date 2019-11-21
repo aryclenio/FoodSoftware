@@ -7,6 +7,7 @@ const pag = () => {
 }        
 const conf = () => {
     $('#modal-pag').modal('hide');
+    let prodCad = [];
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -19,6 +20,13 @@ const conf = () => {
             valCompra: somaCompra,
             val: $('#somaModal').html()
         });
+     $('td:nth-child(3)').each(function(i){
+        prodCad[i] = {id: $(this).prev().prev().html(), quant: $(this).html()};  
+     })
+     for(i=0; i<prodCad.length ;i++){
+            let e = parseInt(prodCad[i].quant); 
+            $.post('http://localhost:3000/venda/novo/'+prodCad[i].id,{quant:e});
+        }
     $('#modal-pag-conf').modal('show');     
 }                  
 function search() {
