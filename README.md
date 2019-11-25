@@ -40,7 +40,7 @@ Launches the API to make connections with the database.
       <a href="https://github.com/aryclenio/Sculptor/commits?author=aryclenio" title="Code">💻</a>
     </td>
     <td align="center">
-      <a href="http://github.com/IagoCassel">
+      <a href="http://github.com/diego2017003">
         <img src="https://avatars.githubusercontent.com/diego2017003" width="100px;" alt="Iago Cassel"/>
         <br />
         <sub><b>Diego Rodrigues</b></sub>
