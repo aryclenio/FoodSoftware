@@ -24,6 +24,18 @@ In the project directory, you can run:
 ### `npm run server`
 Launches the API to make connections with the database.
 
+## Configuring the Database credentials
+The function above in the <b>index.js</b> file provides the DB credentials. This values need to be specific of your development environment.
+```
+function execSQLQuery(sqlQry, res){
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'YOUR USER',
+    password: 'YOUR PASSWORD',
+    port: YOUR PORT,
+    database:'DATABASE NAME'
+})
+```
 ## Code Status
 
 [![Build Status](https://badge.buildkite.com/ab1152b6a1f6a61d3ea4ec5b3eece8d4c2b830998459c75352.svg?branch=master)](https://aryclenio.github.io)
