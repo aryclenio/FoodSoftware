@@ -23,3 +23,29 @@ Runs the app and compile .pug archieves into .html files.
 In the project directory, you can run:
 ### `npm run server`
 Launches the API to make connections with the database.
+
+## Code Status
+
+[![Build Status](https://badge.buildkite.com/ab1152b6a1f6a61d3ea4ec5b3eece8d4c2b830998459c75352.svg?branch=master)](https://aryclenio.github.io)
+
+### Colaborators
+<table>
+  <tr>
+    <td align="center">
+      <a href="http://github.com/aryclenio">
+        <img src="https://avatars.githubusercontent.com/aryclenio" width="100px;" alt="Aryclenio Xavier"/>
+        <br />
+        <sub><b>Aryclenio Xavier</b></sub>
+      </a><br />
+      <a href="https://github.com/aryclenio/Sculptor/commits?author=aryclenio" title="Code">💻</a>
+    </td>
+    <td align="center">
+      <a href="http://github.com/IagoCassel">
+        <img src="https://avatars.githubusercontent.com/diego2017003" width="100px;" alt="Iago Cassel"/>
+        <br />
+        <sub><b>SDiego Rodrigues</b></sub>
+      </a><br />
+      <a href="https://github.com/aryclenio/Sculptor/commits?author=diego2017003" title="Code">💻</a>
+    </td>
+  </tr>
+</table>
