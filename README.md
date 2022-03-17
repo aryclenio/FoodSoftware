@@ -2,6 +2,9 @@
 
 The iFome Diner Management System was proposed to list functions related to the administration of incoming and outgoing food establishments. Such as product registration, employee registration, sales management, editing of registered products and financial balance visualization. This is an Open Source project made for the subject <b>Projeto e Desenvolvimento de Software</b> at Federal University of Rio Grande do Norte.
 
+<img width="1520" alt="image" src="https://user-images.githubusercontent.com/31252524/158809790-064be103-7124-428a-bdd8-f843ff69d01d.png">
+
+
 ## Consider installing the follow programs in order to run the project properly
 <ul>
   <li> Apache </li>
