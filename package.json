@@ -17,7 +17,7 @@
     "babel": "^6.23.0",
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "jquery": "^3.4.1",
     "mysql": "^2.17.1",
     "popper.js": "^1.15.0",
